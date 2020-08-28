@@ -1,0 +1,19 @@
+{
+    "folders": [
+		{
+			"path": "."
+		}
+	],
+    "settings": {
+        "objectscript.conn": {
+            "active": true,
+            "host": "127.0.0.1",
+            "port": 42773,
+            "username": "_SYSTEM",
+            "ns": "USER",
+            "https": false
+        },
+		"objectscript.export.folder": "src", 
+        "objectscript.serverSideEditing": false
+    }
+}

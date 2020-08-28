@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  iris:
+    environment:
+      - ISC_DATA_DIRECTORY=/dur/config
+    ports:
+      - '41773:51773'
+      - '42773:52773'
+    hostname: IRISTOMONITOR
+    image: intersystemsdc/irishealth-community:2020.3.0.200.0-zpm
+    #image: store/intersystems/irishealth-community:2020.2.0.211.0
+    init: true
+    restart: on-failure
+    volumes:
+      - irissys:/dur
+      - ./logs:/logs
+volumes:
+  irissys: ~
+networks:
+    default:
+      external:
+        name: sam-100115-unix_default
