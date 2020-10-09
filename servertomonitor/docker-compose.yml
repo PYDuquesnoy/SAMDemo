@@ -7,8 +7,8 @@ services:
       - '41773:51773'
       - '42773:52773'
     hostname: IRISTOMONITOR
-    image: intersystemsdc/irishealth-community:2020.3.0.200.0-zpm
-    #image: store/intersystems/irishealth-community:2020.2.0.211.0
+    image: store/intersystems/iris-community:2020.3.0.221.0
+    #intersystemsdc/irishealth-community:2020.3.0.200.0-zpm
     init: true
     restart: on-failure
     volumes:
