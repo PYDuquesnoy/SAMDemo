@@ -11,12 +11,12 @@ Here we focus on running it with Docker for Windows, using Linux containers.
 ## Clone this Repo into a local directory:
 
 ```
-git clone https://github.com/PYDuquesnoy/SAMDemo.git
+git clone <this repository>
 ```
 
 and cd into this directory...
 
-the subdirectory sam-1.0.0.115-unix contains the docker-compose to start all SAM components and some startuo and shutdown scripts for unix. We wont't use these shell scripts on Windows. 
+the subdirectory sam-1.0.0.115-unix contains the docker-compose to start all SAM components and some startup and shutdown scripts for unix. We won't use these shell scripts on Windows. 
 
 ## Preparation Steps
 
@@ -26,12 +26,14 @@ In Linux, the config/prometheus directory needs to allow access, so you need to 
 
 ## Start SAM and Connect to it
 
-Startop SAM with:
+If runnin on linux, Start/Stop SAM with the start.sh and stop.sh scripts.
+
+On Windows, Start/Stop SAM with
 
 ```
-SAMDemo\sam-1.0.0.115-unix\docker-compose up 
+.\sam-1.0.0.115-unix\docker-compose -p sam up 
 or, for background:
-SAMDemo\sam-1.0.0.115-unix\docker-compose up -d
+.\sam-1.0.0.115-unix\docker-compose -p sam up -d
 ```
 
 In Windows, you'll get a popup asking to allow the FileSharing between your Windows host and docker, and you need to accept.
@@ -39,11 +41,11 @@ In Windows, you'll get a popup asking to allow the FileSharing between your Wind
 You should see the SAM components starting up:
 
 ```
-Creating sam-100115-unix_iris_1 ... done
-Creating sam-100115-unix_prometheus_1 ... done
-Creating sam-100115-unix_alertmanager_1 ... done
-Creating sam-100115-unix_grafana_1      ... done
-Creating sam-100115-unix_nginx_1        ... done
+Creating sam_iris_1 ... done
+Creating sam_prometheus_1 ... done
+Creating sam_alertmanager_1 ... done
+Creating sam_grafana_1      ... done
+Creating sam_nginx_1        ... done
 ```
 
 
@@ -63,10 +65,10 @@ Now, Connect to the main application (using _SYSTEM / <New Password>)
 
 
 
-Before continuing the demo, we want to add an IRIS Instance to monitor. We'll use a intersystems community instance, and start it is the same docker network as the SAM.
+Before continuing the demo, we want to add an IRIS Instance to monitor. We'll use an InterSystems community instance, and start it is the same docker network as the SAM.
 
 ```
-cd SAMDemo/servertomonitor
+cd ./servertomonitor
 docker-compose up -d
 ```
 
@@ -76,7 +78,7 @@ This instance can be reached as
 | -------------------------------------- | ------------------------------------------- |
 | http://iris:52773/csp/sys/UtilHome.csp | http://127.0.0.1:42773/csp/sys/UtilHome.csp |
 
-Now, login to the Management portal of this instance to change the default password for _SYSTEM/SYS before continuing (otherwise the next steps won't work):
+Now, login to the Management portal of this instance:
 
 ```
 http://127.0.0.1:42773/csp/sys/UtilHome.csp
@@ -88,7 +90,7 @@ http://127.0.0.1:42773/csp/sys/UtilHome.csp
 
 In the SAM portal,  select "Create your first Cluster", add a name "singleinstance" and a Description. Click "Add Cluster".
 
-Now, add an Instance with the "new Button". The IRIS Instance to monitor has been started with hostname "iristomonitor", using the webPort 52773 (internally to the docker Network, but exposed to our Windows host as 127.0.0.1:42773), and its instance name is IRIS:
+Now, add an Instance with the "new Button". The IRIS Instance to monitor has been started with hostname "servertomonitor_iris_1", using the webPort 52773 (internally to the docker Network, but exposed to our Windows host as 127.0.0.1:42773), and its instance name is IRIS:
 
 ```
 IP: iris
@@ -175,9 +177,9 @@ This will generate a "Lock Table Full", which will appear in SAM
 
 
 
-## Create an Application Metric
+## Creating an Application Metric
 
-
+Note: Following preparation steps have already been performed in the Dockerfile that builds the servertomonitor container. You would need to perform them manually as described here if you use your own IRIS instance for testing:
 
 Use an IDE (Studio to 127.0.0.1:41773, or VSCode to 127.0.0.1:42773) to connect to the IRIS Instance, and load/Compile following class:
 
@@ -224,5 +226,7 @@ http://127.0.0.1:42773/api/monitor/metrics
 
 
 
-**The Custom metric(SAMDemo_my_random_counter) i s ready to be added to customized Grafana dashboard.**
+## Using the Metric
+
+The Custom metric(SAMDemo_my_random_counter) is ready to be added to customized using the Grafana dashboard.
 
