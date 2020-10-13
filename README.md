@@ -20,13 +20,21 @@ the subdirectory sam-1.0.0.115-unix contains the docker-compose to start all SAM
 
 ## Preparation Steps
 
-In Linux, the config/prometheus directory needs to allow access, so you need to change its permissions to 777.
+In Linux, the config/prometheus directory needs to allow access, so you need to change its permissions to 777:
+
+```
+chmod 777 ./sam-1.0.0.115-unix/config/prometheus
+```
 
 
 
 ## Start SAM and Connect to it
 
-If runnin on linux, Start/Stop SAM with the start.sh and stop.sh scripts.
+If running on linux, Start/Stop SAM with the start.sh and stop.sh scripts located in .\sam-1.0.0.0.115-unix\. You need to allow the scrits to execute:
+
+```
+chmod +x *.sh
+```
 
 On Windows, Start/Stop SAM with
 
@@ -172,13 +180,19 @@ And Run Following:
 USER> for i=1:1 lock +^Test(i,"This is a long Subscript to fill the table faster") w:(i#1000)=0 i,"  "
 ```
 
-This will generate a "Lock Table Full", which will appear in SAM
+This will generate a "Lock Table Full", which will appear in SAM.
+
+Clear the lock before continuing:
+
+```
+USER>lock
+```
 
 
 
 ## Creating an Application Metric
 
-Note: Following preparation steps have already been performed in the Dockerfile that builds the servertomonitor container. You would need to perform them manually as described here if you use your own IRIS instance for testing:
+Note: Following preparation step (loading the metric code in IRIS USER namespace) has already been performed in the Dockerfile that builds the servertomonitor container. You would need to perform them manually as described here if you use your own IRIS instance for testing:
 
 Use an IDE (Studio to 127.0.0.1:41773, or VSCode to 127.0.0.1:42773) to connect to the IRIS Instance, and load/Compile following class:
 
@@ -202,7 +216,7 @@ Method GetSensors() As %Status
 
 
 
-Add the custom class to the /metrics configuration
+To make this metric available, Add the custom class to the /metrics configuration with following command:
 
 ```
 docker exec -it servertomonitor_iris_1 iris session iris
@@ -215,7 +229,7 @@ write sc
 
 Very Important:
 
-Add Privileges to the /api/Monitor REST Application to run code in the USER Namespace.(Add Application Role %DB_USER, otherwise it does not work.)
+Add Privileges to the /api/Monitor REST Application to run code in the USER Namespace. (Add Application Role %DB_USER, otherwise it does not work.)
 
 Review the Metric endpoint with a browser, and Verify that the new metric is present.( If not, review the Audit Database for a possible "Protect" error).
 
@@ -227,5 +241,5 @@ http://127.0.0.1:42773/api/monitor/metrics
 
 ## Using the Metric
 
-The Custom metric(SAMDemo_my_random_counter) is ready to be added to customized using the Grafana dashboard.
+The Custom metric (SAMDemo_my_random_counter) is ready to be added to customized using the Grafana dashboard.
 
