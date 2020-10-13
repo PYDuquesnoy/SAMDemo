@@ -2,6 +2,10 @@
 
 
 
+For a general overview of the SAM Architecture, see the PDF "02_Observability_Audit_Monitoring".
+
+
+
 The following Workshop can be run on any platform that supports docker. Is has been tested on Docker for Linux and Docker for Windows.
 
 
