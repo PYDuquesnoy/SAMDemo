@@ -2,13 +2,13 @@
 
 
 
-The following Worshop can be run on any platform that supports docker.
+The following Workshop can be run on any platform that supports docker.
 
 Here we focus on running it with Docker for Windows, using Linux containers.
 
 
 
-## Clone this Repo into a local directory:
+## Clone this Repo into a local directory
 
 ```
 git clone <this repository>
@@ -59,7 +59,6 @@ Connect to the System Management portal of the IRIS Instance within SAM, to chan
 Now, Connect to the main application (using _SYSTEM / <New Password>)
 
 ```
-
  http://127.0.0.1:8080/api/sam/app/index.csp
 ```
 
@@ -78,7 +77,7 @@ This instance can be reached as
 | -------------------------------------- | ------------------------------------------- |
 | http://iris:52773/csp/sys/UtilHome.csp | http://127.0.0.1:42773/csp/sys/UtilHome.csp |
 
-Now, login to the Management portal of this instance:
+Now, login to the Management portal of this instance (_SYSTEM /  SYS):
 
 ```
 http://127.0.0.1:42773/csp/sys/UtilHome.csp
