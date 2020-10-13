@@ -6,8 +6,12 @@ services:
     ports:
       - '41773:51773'
       - '42773:52773'
-    hostname: IRISTOMONITOR
-    image: store/intersystems/iris-community:2020.3.0.221.0
+    hostname: servertomonitor
+    #image: store/intersystems/iris-community:2020.3.0.221.0
+    build:
+      context: .
+      dockerfile: Dockerfile  
+    
     #intersystemsdc/irishealth-community:2020.3.0.200.0-zpm
     init: true
     restart: on-failure
