@@ -1,8 +1,8 @@
-# System Management and Monitoring Demo
+# Workshop: System Management and Monitoring 
 
 
 
-The following Demo can be run on any platform that supports docker.
+The following Worshop can be run on any platform that supports docker.
 
 Here we focus on running it with Docker for Windows, using Linux containers.
 
