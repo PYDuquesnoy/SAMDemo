@@ -2,9 +2,7 @@
 
 
 
-The following Workshop can be run on any platform that supports docker.
-
-Here we focus on running it with Docker for Windows, using Linux containers.
+The following Workshop can be run on any platform that supports docker. Is has been tested on Docker for Linux and Docker for Windows.
 
 
 
